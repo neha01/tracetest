@@ -1,0 +1,25 @@
+name: POST New Book
+trigger:
+  type: http
+  httpRequest:
+    url: localhost:8090
+    route: /books
+    method: POST
+    contentType: application/json
+    body: '{ "title": "foo", "author": "bar"}'
+specs:
+  - name: Assert that status code is 200
+    selectors:
+      serviceName: goapp
+      httpMethod: POST
+      httpRoute: /books
+      httpHost: localhost:8090
+    assertions:
+      responseStatusCode: 200
+      httpMethod: POST
+      httpRoute: /books
+      httpHost: localhost:8090
+      serviceName: goapp
+      name: gorm.Create
+    maxRetries: 3
+    retryInterval: 4
